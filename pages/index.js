@@ -1,7 +1,7 @@
-const Index = () => (
-    <div>
-      <p>Hello Next.js</p>
-    </div>
-);
+import Layout from './components/AppLayout.js';
 
-export default Index;
+const indexPageContent = <p>Ask Questions!</p>;
+
+export default function Index() {
+  return <Layout content={indexPageContent}/>;
+}
