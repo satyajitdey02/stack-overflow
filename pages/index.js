@@ -1,4 +1,4 @@
-import Layout from './components/AppLayout.js';
+import Layout from "../components/AppLayout";
 
 const indexPageContent = <p>Ask Questions!</p>;
 
