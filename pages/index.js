@@ -1,7 +1,9 @@
-import Layout from "../components/AppLayout";
-
-const indexPageContent = <p>Ask Questions!</p>;
+import AppLayout from "../components/AppLayout";
 
 export default function Index() {
-  return <Layout content={indexPageContent}/>;
+  return (
+      <AppLayout>
+        This is layout
+      </AppLayout>
+  );
 }
