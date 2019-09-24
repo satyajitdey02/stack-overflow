@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from "./common/Head";
 import SearchBox from './SearchBox';
+import Link from 'next/link'
 
 import './../assets/styles.less';
 
@@ -40,7 +41,15 @@ export default class AppLayout extends React.Component {
             </Menu.Item>
             <Menu.Item key="2">
               <Icon type="video-camera" />
-              <span>Ask Question</span>
+              <span>
+              <Link href="/questions/ask">
+                
+                <a>Ask Question</a>
+              
+            </Link>
+              </span>
+              
+              
             </Menu.Item>
             
           </Menu>
