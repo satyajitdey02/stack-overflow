@@ -1,6 +1,10 @@
-import AppLayout from "./../../components/AppLayout";
-import RichTextEditor from './../../components/RichTextEditor';
-import { EditorState } from "draft-js";
+import React from 'react'
+import { EditorState } from 'draft-js'
+import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import {stateToHTML} from 'draft-js-export-html';
+import {stateFromHTML} from 'draft-js-import-html';
+import AppLayout from './../../components/AppLayout';
 
 import {
     Form,
@@ -19,13 +23,41 @@ import {
   const { Option } = Select;
   const AutoCompleteOption = AutoComplete.Option;
   
-  
-  
   class QuestionForm extends React.Component {
-    state = {
-      confirmDirty: false,
-      autoCompleteResult: [],
-    };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+          editorState: null,
+          showEditor: false,
+          confirmDirty: false,
+          autoCompleteResult: []
+        };
+      }
+    
+      onChange = (currentContent) => {
+        const blocks = currentContent.blocks;
+        const value = blocks.map(block => (!block.text.trim() && '\n') || block.text).join('\n');
+        console.log(value);
+      }
+    
+      onEditorStateChange = (editorState) => {
+        this.setState({
+          editorState
+        });
+        const plainText = editorState.getCurrentContent().getPlainText('\u0001');
+        console.log('Plain Text: ', plainText);
+
+        const html = stateToHTML(editorState.getCurrentContent());
+        console.log(html);
+      }
+      componentDidMount() {
+        this.setState({
+          editorState: EditorState.createWithContent(stateFromHTML("<strong>Hello</strong> Guys")),
+          showEditor: true,
+        })
+      }
+    
   
     handleSubmit = e => {
       e.preventDefault();
@@ -101,7 +133,13 @@ import {
                   message: 'Write question in details',
                 },
               ],
-            })(<RichTextEditor editorState={new EditorState.createEmpty()}/>)}
+            })(<Editor
+                  editorState={this.state.editorState}
+                  toolbarClassName="toolbarClassName"
+                  wrapperClassName="wrapperClassName"
+                  editorClassName="editorClassName"
+                  onEditorStateChange={this.onEditorStateChange}
+                />)}
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
             <Button type="primary" htmlType="submit">
