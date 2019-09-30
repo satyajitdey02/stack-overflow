@@ -1,0 +1,49 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "title": "Cannot read property addEventListener of null",
+      "body": "I have an img element, on click I want it to transform into an iframe (embedded video). I have assigned a ref to the element and also, I attach an event listener to the element when the component mounts. \nThe problem I am experiencing is that I am not seeing the changes I expect. I am getting an error Cannot read property addEventListener of null in the console. On clicking the image nothing happens, I assume either the event listener is not attached or the handler method is not working properly. What am i doing wrong here?",
+      "vote": 999,
+      "answers": [
+        {
+          "userId": 1,
+          "answer": "Looks like the problem is with how you are checking whether the video wrapper exists or not: \nif (video_wrapper.length) {\n...\n}\nYou should check if video_wrapper is truthy or not, instead of checking the property length:\n\nif (video_wrapper) {\n...\n}\nAlso, there is a better approche to do this other than using refs. You can add a state variable to ViewCourse, something like showIframe, and pass it down to ViewOneCourse, then inside ViewOneCourse you would use that variable (showIframe) to render either the image or the iframe.",
+          "accepted": false,
+          "vote": 1
+        },
+        {
+          "userId": 2,
+          "answer": "Looks like the problem is with how you are checking whether the video wrapper exists or not: \nif (video_wrapper.length) {\n...\n}\nYou should check if video_wrapper is truthy or not, instead of checking the property length:\n\nif (video_wrapper) {\n...\n}\nAlso, there is a better approche to do this other than using refs. You can add a state variable to ViewCourse, something like showIframe, and pass it down to ViewOneCourse, then inside ViewOneCourse you would use that variable (showIframe) to render either the image or the iframe.",
+          "accepted": true,
+          "vote": 10
+        }
+      ],
+      "comments": [],
+      "tags": [
+        1,
+        2
+      ]
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Satyajit Dey"
+    },
+    {
+      "id": 2,
+      "name": "Arnab Das"
+    }
+  ],
+  "tags": [
+    {
+      "id": 1,
+      "name": "reactjs"
+    },
+    {
+      "id": 2,
+      "name": "javascript"
+    }
+  ]
+}

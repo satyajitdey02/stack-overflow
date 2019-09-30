@@ -6,6 +6,8 @@ import {stateToHTML} from 'draft-js-export-html';
 import {stateFromHTML} from 'draft-js-import-html';
 import AppLayout from './../../components/AppLayout';
 
+import fetch from 'isomorphic-unfetch';
+
 import {
     Form,
     Input,
@@ -28,11 +30,13 @@ import {
     constructor(props) {
         super(props);
         this.state = {
+          title: null,
           editorState: null,
           showEditor: false,
           confirmDirty: false,
           autoCompleteResult: []
         };
+        this.questionForm = React.createRef();
       }
     
       onChange = (currentContent) => {
@@ -57,16 +61,34 @@ import {
           showEditor: true,
         })
       }
-    
+
   
     handleSubmit = e => {
       e.preventDefault();
       this.props.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          console.log('Received values of form: ', values);
+         // console.log('Received values of form: ', values);
+          this.postQuestions(values);
         }
       });
     };
+
+    postQuestions = (formValues) => {
+        
+        const body = stateToHTML(this.state.editorState.getCurrentContent());
+        formValues.body = body;
+        formValues.user = 'Satyajit Dey';
+        console.log('fv ', JSON.stringify(formValues));
+        
+        fetch(`http://localhost:3000/questions`, {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formValues)
+          })
+    }
   
     handleConfirmBlur = e => {
       const { value } = e.target;
@@ -114,7 +136,7 @@ import {
   
       return (
           <AppLayout>
-        <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+        <Form {...formItemLayout} onSubmit={this.handleSubmit} ref={this.questionForm}>
           <Form.Item label="Question Title">
             {getFieldDecorator('title', {
               rules: [
