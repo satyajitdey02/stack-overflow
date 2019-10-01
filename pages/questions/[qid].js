@@ -27,6 +27,41 @@ export default class Question extends React.Component {
     this.answerForm = React.createRef();
   }
 
+  upVote = async(index) => {
+   const answers  = [...this.state.question.answers];
+   const currentAnswer = {...answers[index]};
+   currentAnswer.vote = currentAnswer.vote ? (currentAnswer.vote + 1) : 1;
+
+   let modifiedQuestion = {...this.state.question};
+   modifiedQuestion.answers[index] = currentAnswer;
+
+   await this.updateQuestion(modifiedQuestion);
+   this.refreshAnswerList();
+  };
+
+  updateQuestion = (modifiedQuestion) => {
+    return fetch(`http://localhost:3000/questions/${this.state.question.id}`, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(modifiedQuestion)
+    });
+  };
+
+  downVote = async(index) => {
+    const answers  = [...this.state.question.answers];
+    const currentAnswer = {...answers[index]};
+    currentAnswer.vote = currentAnswer.vote ? (currentAnswer.vote - 1) : -1;
+
+    let modifiedQuestion = {...this.state.question};
+    modifiedQuestion.answers[index] = currentAnswer;
+
+    await this.updateQuestion(modifiedQuestion);
+    this.refreshAnswerList();
+  };
+
   refreshAnswerList = async () => {
     console.log('Refresh triggering');
     const json = await Question.fetchQuestion(this.props.question.id);
@@ -47,8 +82,18 @@ export default class Question extends React.Component {
           <div className={'body'} dangerouslySetInnerHTML={{__html: question.body}} />
             
           <div className={'tags'}> {question.tags}</div>
+
           {question.answers.map((a,i)=> {
-            return (<div key={i} className={'answer'} dangerouslySetInnerHTML={{__html: a.answer}} />);
+            return (
+            <div   key={i}>
+              <div  className={'answer'} dangerouslySetInnerHTML={{__html: a.answer}} />
+              <div>Total Vote: {a.vote ? a.vote : 0}</div>
+              <div>
+                <button onClick={() => {this.upVote(i)}}>Up</button>
+                <button onClick={() => {this.downVote(i)}}>Down</button>
+              </div>
+            </div>
+            );
           })}
           <AnswerForm question={{...question}} refreshAnswerList={this.refreshAnswerList}/>
           
