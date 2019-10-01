@@ -112,7 +112,7 @@ import {
       }
       componentDidMount() {
         this.setState({
-          editorState: EditorState.createWithContent(stateFromHTML("<strong>Hello</strong> Guys")),
+          editorState: EditorState.createWithContent(stateFromHTML("")),
           showEditor: true,
         })
       }
