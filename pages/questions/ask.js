@@ -110,6 +110,7 @@ import {
         const html = stateToHTML(editorState.getCurrentContent());
         console.log(html);
       }
+      
       componentDidMount() {
         this.setState({
           editorState: EditorState.createWithContent(stateFromHTML("")),
