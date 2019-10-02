@@ -1,5 +1,7 @@
 @import "menu.less";
 
+@base-color: #1890ff;
+
 body {
   background-color: aqua;
 }
@@ -21,4 +23,17 @@ body {
 .toolbarClassName {
   border: 1px solid rgb(217, 217, 217) !important;
   border-radius: 5px !important;
+}
+
+.header-options {
+  display: flex;
+  padding: 5px 10px;
+}
+
+.basic-fa-icon {
+  color: @base-color;
+}
+
+.link {
+  cursor: pointer;
 }

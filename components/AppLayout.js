@@ -6,6 +6,7 @@ import Link from "next/link";
 import "./../assets/styles.less";
 
 import { Layout, Menu, Icon, Row, Col, Affix } from "antd";
+import HeaderOptions from "./HeaderOptions";
 
 const { Header, Sider, Content } = Layout;
 
@@ -50,7 +51,9 @@ export default class AppLayout extends React.Component {
             <Affix offsetTop={0}>
               <Header style={{ background: "#fff", padding: 0 }}>
                 <Row className="search-box-container">
-                  <Col span={6}></Col>
+                  <Col span={6}>
+                    <HeaderOptions />
+                  </Col>
                   <Col span={12}>
                     <SearchBox />
                   </Col>
