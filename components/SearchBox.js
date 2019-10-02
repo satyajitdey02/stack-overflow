@@ -1,4 +1,5 @@
 import { Input } from "antd";
+import Router from 'next/router';
 
 const { Search } = Input;
 
@@ -7,12 +8,19 @@ export default class SearchBox extends React.Component {
     super(props);
   }
 
+  doSearch = (value) => {
+    Router.push({
+      pathname: '/search',
+      query: {q: value}
+    });
+  }
+
   render() {
     return (
       <Search
         size="large"
         placeholder="input search text"
-        onSearch={value => console.log(value)}
+        onSearch={this.doSearch}
         enterButton
       />
     );
