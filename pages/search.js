@@ -37,6 +37,7 @@ export default class Search extends React.Component {
             <Link href="/questions/[qid]" as={`/questions/${q.id}`}>
               <a>{q.title}</a>
             </Link>
+            <p>Date: {q.postDate}</p>
           </div>
         );
       })}

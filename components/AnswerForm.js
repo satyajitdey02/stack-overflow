@@ -54,7 +54,8 @@ import {
       
       answers.push({
         userId: 1,
-        answer: answer
+        answer: answer,
+        answerDate: new Date()
       });
 
       const updatedQuestion = {

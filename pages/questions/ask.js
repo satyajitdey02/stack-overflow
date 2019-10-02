@@ -132,6 +132,7 @@ class QuestionForm extends React.Component {
     const body = stateToHTML(this.state.editorState.getCurrentContent());
     formValues.body = body;
     formValues.user = "Satyajit Dey";
+    formValues.postDate = new Date();
     console.log("fv ", JSON.stringify(formValues));
 
     fetch(`http://localhost:3000/questions`, {

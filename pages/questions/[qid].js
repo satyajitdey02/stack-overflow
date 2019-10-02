@@ -92,6 +92,7 @@ export default class Question extends React.Component {
                 <button onClick={() => {this.upVote(i)}}>Up</button>
                 <button onClick={() => {this.downVote(i)}}>Down</button>
               </div>
+              <div>Date: {a.answerDate}</div>
             </div>
             );
           })}
