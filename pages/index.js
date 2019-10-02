@@ -21,6 +21,7 @@ export default class Index extends React.Component {
 
   render() {
     const { questions } = this.props;
+
     return (
       <AppLayout>
         {questions.map(q => {
