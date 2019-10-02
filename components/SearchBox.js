@@ -1,9 +1,9 @@
 import { Input } from "antd";
-import Router from 'next/router';
+import Router, { withRouter } from 'next/router';
 
 const { Search } = Input;
 
-export default class SearchBox extends React.Component {
+class SearchBox extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -16,8 +16,13 @@ export default class SearchBox extends React.Component {
   }
 
   render() {
+
+    const {pathname, query} =  this.props.router;
+    const value = pathname === '/search' ? query.q : '';
+
     return (
       <Search
+       defaultValue={value}
         size="large"
         placeholder="input search text"
         onSearch={this.doSearch}
@@ -26,3 +31,5 @@ export default class SearchBox extends React.Component {
     );
   }
 }
+
+export default withRouter(SearchBox);

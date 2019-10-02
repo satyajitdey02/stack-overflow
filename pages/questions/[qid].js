@@ -81,9 +81,9 @@ export default class Question extends React.Component {
           
           <div className={'body'} dangerouslySetInnerHTML={{__html: question.body}} />
             
-          <div className={'tags'}> {question.tags}</div>
+          <div className={'tags'}> {question.tags ? question.tags : ''}</div>
 
-          {question.answers.map((a,i)=> {
+          {question.answers && question.answers.map((a,i)=> {
             return (
             <div   key={i}>
               <div  className={'answer'} dangerouslySetInnerHTML={{__html: a.answer}} />

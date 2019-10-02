@@ -49,7 +49,7 @@ import {
     postAnswer = (formValues) => {
 
        const {question} = this.props;
-       const answers = [...question.answers]; 
+       const answers = question.answers ?[...question.answers] : []; 
       const answer = stateToHTML(this.state.editorState.getCurrentContent());
       
       answers.push({
@@ -63,7 +63,7 @@ import {
       };
 
       console.log('fv ', JSON.stringify(updatedQuestion));
-      this.props.question.answers.push
+      
       return fetch(`http://localhost:3000/questions/${this.props.question.id}`, {
           method: 'PUT',
           headers: {
