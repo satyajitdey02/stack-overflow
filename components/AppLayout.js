@@ -27,58 +27,56 @@ export default class AppLayout extends React.Component {
   render() {
     const { children } = this.props;
     return (
-      <>
-        <Head />
-        <Layout className="main-layout">
-          <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
-            <div className="logo" />
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
-              <Menu.Item key="1">
-                <Icon type="user" />
-                <span>Satyajit Dey</span>
-              </Menu.Item>
-              <Menu.Item key="2">
-                <Icon type="video-camera" />
-                <span>
-                  <Link href="/questions/ask">
-                    <a>Ask Question</a>
-                  </Link>
-                </span>
-              </Menu.Item>
-            </Menu>
-          </Sider>
-          <Layout>
-            <Affix offsetTop={0}>
-              <Header style={{ background: "#fff", padding: 0 }}>
-                <Row className="search-box-container">
-                  <Col span={6}>
-                    <HeaderOptions />
-                  </Col>
-                  <Col span={12}>
-                    <SearchBox />
-                  </Col>
-                  <Col span={6}></Col>
-                </Row>
-                <Icon
-                  className="trigger"
-                  type={this.state.collapsed ? "menu-unfold" : "menu-fold"}
-                  onClick={this.toggle}
-                />
-              </Header>
-            </Affix>
-            <Content
-              style={{
-                margin: "24px 16px",
-                padding: 24,
-                background: "#fff",
-                minHeight: 280
-              }}
-            >
-              {children}
-            </Content>
+        <>
+          <Head />
+          <Layout className="main-layout">
+
+            <Layout>
+              <Affix offsetTop={0}>
+                <Header style={{ background: "#fff", padding: 0 }}>
+                  <Row className="search-box-container">
+                    <Col span={6}>
+                      <HeaderOptions />
+                    </Col>
+                    <Col span={12}>
+                      <SearchBox />
+                    </Col>
+                    <Col span={6}>
+                      <Menu mode="horizontal">
+                        <Menu.Item key="ask">
+                          <Link href="/questions/ask" prefetch={true}>
+                            <a>Ask</a>
+                          </Link>
+                        </Menu.Item>
+                        <Menu.Item key="login" prefetch={true}>
+                          <Link href="/login">
+                            <a>Login</a>
+                          </Link>
+                        </Menu.Item>
+                        <Menu.Item key="register" prefetch={true}>
+                          <Link href="/register">
+                            <a>Register</a>
+                          </Link>
+                        </Menu.Item>
+                      </Menu>
+
+                    </Col>
+                  </Row>
+
+                </Header>
+              </Affix>
+              <Content
+                  style={{
+                    margin: "24px 16px",
+                    padding: 24,
+                    background: "#fff",
+                    minHeight: 280
+                  }}>
+                {children}
+              </Content>
+            </Layout>
           </Layout>
-        </Layout>
-      </>
+        </>
     );
   }
 }
