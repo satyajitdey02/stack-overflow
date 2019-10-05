@@ -1,14 +1,14 @@
-import React from "react";
-import { EditorState } from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { stateToHTML } from "draft-js-export-html";
-import { stateFromHTML } from "draft-js-import-html";
-import AppLayout from "./../../components/AppLayout";
+import React from 'react';
+import { EditorState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { stateToHTML } from 'draft-js-export-html';
+import { stateFromHTML } from 'draft-js-import-html';
+import AppLayout from './../../components/AppLayout';
 
-import { TweenOneGroup } from "rc-tween-one";
+import { TweenOneGroup } from 'rc-tween-one';
 
-import fetch from "isomorphic-unfetch";
+import fetch from 'isomorphic-unfetch';
 
 import {
   Form,
@@ -22,8 +22,8 @@ import {
   Col,
   Checkbox,
   Button,
-  AutoComplete
-} from "antd";
+  AutoComplete,
+} from 'antd';
 
 const { Option } = Select;
 const AutoCompleteOption = AutoComplete.Option;
@@ -37,7 +37,7 @@ class QuestionForm extends React.Component {
       showEditor: false,
       confirmDirty: false,
       autoCompleteResult: [],
-      tags: []
+      tags: [],
     };
     this.questionForm = React.createRef();
   }
@@ -66,7 +66,7 @@ class QuestionForm extends React.Component {
     this.setState({
       tags,
       inputVisible: false,
-      inputValue: ""
+      inputValue: '',
     });
   };
 
@@ -85,7 +85,7 @@ class QuestionForm extends React.Component {
     );
 
     return (
-      <span key={tag} style={{ display: "inline-block" }}>
+      <span key={tag} style={{ display: 'inline-block' }}>
         {tagElem}
       </span>
     );
@@ -94,17 +94,17 @@ class QuestionForm extends React.Component {
   onChange = currentContent => {
     const blocks = currentContent.blocks;
     const value = blocks
-      .map(block => (!block.text.trim() && "\n") || block.text)
-      .join("\n");
+      .map(block => (!block.text.trim() && '\n') || block.text)
+      .join('\n');
     console.log(value);
   };
 
   onEditorStateChange = editorState => {
     this.setState({
-      editorState
+      editorState,
     });
-    const plainText = editorState.getCurrentContent().getPlainText("\u0001");
-    console.log("Plain Text: ", plainText);
+    const plainText = editorState.getCurrentContent().getPlainText('\u0001');
+    console.log('Plain Text: ', plainText);
 
     const html = stateToHTML(editorState.getCurrentContent());
     console.log(html);
@@ -112,8 +112,8 @@ class QuestionForm extends React.Component {
 
   componentDidMount() {
     this.setState({
-      editorState: EditorState.createWithContent(stateFromHTML("")),
-      showEditor: true
+      editorState: EditorState.createWithContent(stateFromHTML('')),
+      showEditor: true,
     });
   }
 
@@ -131,17 +131,17 @@ class QuestionForm extends React.Component {
   postQuestions = formValues => {
     const body = stateToHTML(this.state.editorState.getCurrentContent());
     formValues.body = body;
-    formValues.user = "Satyajit Dey";
+    formValues.user = 'Satyajit Dey';
     formValues.postDate = new Date();
-    console.log("fv ", JSON.stringify(formValues));
+    console.log('fv ', JSON.stringify(formValues));
 
     fetch(`http://localhost:3000/questions`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formValues)
+      body: JSON.stringify(formValues),
     });
   };
 
@@ -155,7 +155,7 @@ class QuestionForm extends React.Component {
     if (!value) {
       autoCompleteResult = [];
     } else {
-      autoCompleteResult = [".com", ".org", ".net"].map(
+      autoCompleteResult = ['.com', '.org', '.net'].map(
         domain => `${value}${domain}`
       );
     }
@@ -172,24 +172,24 @@ class QuestionForm extends React.Component {
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
-        sm: { span: 8 }
+        sm: { span: 8 },
       },
       wrapperCol: {
         xs: { span: 24 },
-        sm: { span: 16 }
-      }
+        sm: { span: 16 },
+      },
     };
     const tailFormItemLayout = {
       wrapperCol: {
         xs: {
           span: 24,
-          offset: 0
+          offset: 0,
         },
         sm: {
           span: 16,
-          offset: 8
-        }
-      }
+          offset: 8,
+        },
+      },
     };
 
     return (
@@ -204,13 +204,13 @@ class QuestionForm extends React.Component {
             labelAlign="left"
             label="Question Title"
           >
-            {getFieldDecorator("title", {
+            {getFieldDecorator('title', {
               rules: [
                 {
                   required: true,
-                  message: "Please input title"
-                }
-              ]
+                  message: 'Please input title',
+                },
+              ],
             })(<Input size="large" />)}
           </Form.Item>
           <Form.Item
@@ -218,13 +218,13 @@ class QuestionForm extends React.Component {
             labelAlign="left"
             label="Question Body"
           >
-            {getFieldDecorator("body", {
+            {getFieldDecorator('body', {
               rules: [
                 {
                   required: true,
-                  message: "Write question in details"
-                }
-              ]
+                  message: 'Write question in details',
+                },
+              ],
             })(
               <Editor
                 editorState={this.state.editorState}
@@ -242,11 +242,11 @@ class QuestionForm extends React.Component {
                   enter={{
                     scale: 0.8,
                     opacity: 0,
-                    type: "from",
+                    type: 'from',
                     duration: 100,
                     onComplete: e => {
-                      e.target.style = "";
-                    }
+                      e.target.style = '';
+                    },
                   }}
                   leave={{ opacity: 0, width: 0, scale: 0, duration: 200 }}
                   appear={false}
@@ -269,7 +269,7 @@ class QuestionForm extends React.Component {
               {!inputVisible && (
                 <Tag
                   onClick={this.showInput}
-                  style={{ background: "#fff", borderStyle: "dashed" }}
+                  style={{ background: '#fff', borderStyle: 'dashed' }}
                 >
                   <Icon type="plus" /> New Tag
                 </Tag>
@@ -287,6 +287,6 @@ class QuestionForm extends React.Component {
   }
 }
 
-const WrappedQuestionForm = Form.create({ name: "ask" })(QuestionForm);
+const WrappedQuestionForm = Form.create({ name: 'ask' })(QuestionForm);
 
 export default WrappedQuestionForm;

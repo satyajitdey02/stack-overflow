@@ -1,8 +1,8 @@
-import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const linkStyle = {
-  marginRight: 15
+  marginRight: 15,
 };
 
 const HeaderOptions = () => (

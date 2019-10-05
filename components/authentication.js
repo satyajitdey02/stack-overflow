@@ -1,16 +1,21 @@
 import React from 'react';
-import {withAuthContext} from "./hoc/withAuthContext";
+import { withAuthContext } from './hoc/withAuthContext';
 
-const Authentication = (props) => {
-  const {user, onLogin, onLogout} = props;
+const Authentication = props => {
+  const { user, onLogin, onLogout } = props;
   console.log(userObj);
   return (
-      <React.Fragment>
-        {user && user.userName
-            ? <a href="#" onClick={onLogoutClick}>Logout</a>
-            : <a href="#" onClick={onLoginClick}>Login</a>
-        }
-      </React.Fragment>
+    <React.Fragment>
+      {user && user.userName ? (
+        <a href="#" onClick={onLogoutClick}>
+          Logout
+        </a>
+      ) : (
+        <a href="#" onClick={onLoginClick}>
+          Login
+        </a>
+      )}
+    </React.Fragment>
   );
 };
 

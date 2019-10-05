@@ -1,14 +1,11 @@
-import AppLayout from "../components/AppLayout";
-import React from "react";
-import fetch from "isomorphic-unfetch";
-import Link from "next/link";
-import buildFAIcons from "../utils/fontAwesome";
-
-buildFAIcons();
+import AppLayout from '../components/AppLayout';
+import React from 'react';
+import fetch from 'isomorphic-unfetch';
+import Link from 'next/link';
 
 export default class Index extends React.Component {
   static async getInitialProps() {
-    const res = await fetch("http://localhost:3000/questions");
+    const res = await fetch('http://localhost:3000/questions');
     const json = await res.json();
 
     return { questions: json };

@@ -1,4 +1,4 @@
-import { Input } from "antd";
+import { Input } from 'antd';
 import Router, { withRouter } from 'next/router';
 
 const { Search } = Input;
@@ -8,21 +8,20 @@ class SearchBox extends React.Component {
     super(props);
   }
 
-  doSearch = (value) => {
+  doSearch = value => {
     Router.push({
       pathname: '/search',
-      query: {q: value}
+      query: { q: value },
     });
-  }
+  };
 
   render() {
-
-    const {pathname, query} =  this.props.router;
+    const { pathname, query } = this.props.router;
     const value = pathname === '/search' ? query.q : '';
 
     return (
       <Search
-       defaultValue={value}
+        defaultValue={value}
         size="large"
         placeholder="input search text"
         onSearch={this.doSearch}
