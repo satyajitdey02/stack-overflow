@@ -31,9 +31,6 @@ class AnswerForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll(async (err, values) => {
       if (!err) {
-        // console.log('Received values of form: ', values);
-        //values.tags  = [...this.state.tags];
-
         await this.postAnswer(values);
         this.props.refreshAnswerList();
       }
@@ -56,8 +53,6 @@ class AnswerForm extends React.Component {
       answers: answers,
     };
 
-    console.log('fv ', JSON.stringify(updatedQuestion));
-
     return fetch(`http://localhost:3000/questions/${this.props.question.id}`, {
       method: 'PUT',
       headers: {
@@ -73,10 +68,7 @@ class AnswerForm extends React.Component {
       editorState,
     });
     const plainText = editorState.getCurrentContent().getPlainText('\u0001');
-    console.log('Plain Text: ', plainText);
-
     const html = stateToHTML(editorState.getCurrentContent());
-    //  console.log(html);
   };
 
   render() {

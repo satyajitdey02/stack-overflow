@@ -44,7 +44,6 @@ class QuestionForm extends React.Component {
 
   handleClose = removedTag => {
     const tags = this.state.tags.filter(tag => tag !== removedTag);
-    console.log(tags);
     this.setState({ tags });
   };
 
@@ -62,7 +61,6 @@ class QuestionForm extends React.Component {
     if (inputValue && tags.indexOf(inputValue) === -1) {
       tags = [...tags, inputValue];
     }
-    console.log(tags);
     this.setState({
       tags,
       inputVisible: false,
@@ -96,7 +94,6 @@ class QuestionForm extends React.Component {
     const value = blocks
       .map(block => (!block.text.trim() && '\n') || block.text)
       .join('\n');
-    console.log(value);
   };
 
   onEditorStateChange = editorState => {
@@ -104,10 +101,8 @@ class QuestionForm extends React.Component {
       editorState,
     });
     const plainText = editorState.getCurrentContent().getPlainText('\u0001');
-    console.log('Plain Text: ', plainText);
 
     const html = stateToHTML(editorState.getCurrentContent());
-    console.log(html);
   };
 
   componentDidMount() {
@@ -121,7 +116,6 @@ class QuestionForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        // console.log('Received values of form: ', values);
         values.tags = [...this.state.tags];
         this.postQuestions(values);
       }
@@ -133,7 +127,6 @@ class QuestionForm extends React.Component {
     formValues.body = body;
     formValues.user = 'Satyajit Dey';
     formValues.postDate = new Date();
-    console.log('fv ', JSON.stringify(formValues));
 
     fetch(`http://localhost:3000/questions`, {
       method: 'POST',

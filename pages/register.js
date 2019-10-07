@@ -61,7 +61,6 @@ class RegistrationForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
         this.registerUser(values);
       }
     });
@@ -69,7 +68,6 @@ class RegistrationForm extends React.Component {
 
   registerUser = formValues => {
     formValues.registeredAt = new Date();
-    console.log('fv ', JSON.stringify(formValues));
 
     fetch(`http://localhost:3000/users`, {
       method: 'POST',

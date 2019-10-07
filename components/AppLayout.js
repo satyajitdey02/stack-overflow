@@ -2,6 +2,7 @@ import React from 'react';
 import Head from './common/Head';
 import SearchBox from './SearchBox';
 import Link from 'next/link';
+import withAuthContext from '../components/hoc/withAuthContext';
 
 import './../assets/styles.less';
 
@@ -10,7 +11,7 @@ import HeaderOptions from './HeaderOptions';
 
 const { Header, Sider, Content } = Layout;
 
-export default class AppLayout extends React.Component {
+class AppLayout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,7 +26,18 @@ export default class AppLayout extends React.Component {
   };
 
   render() {
-    const { children } = this.props;
+    const { children, user, onLogout } = this.props;
+    const userButton =
+      user === null ? (
+        <Link href="/login">
+          <a>Login</a>
+        </Link>
+      ) : (
+        <button onClick={onLogout} className="logout">
+          {'Logout'}
+        </button>
+      );
+
     return (
       <>
         <Head />
@@ -47,10 +59,8 @@ export default class AppLayout extends React.Component {
                           <a>Ask</a>
                         </Link>
                       </Menu.Item>
-                      <Menu.Item key="login" prefetch={true}>
-                        <Link href="/login">
-                          <a>Login</a>
-                        </Link>
+                      <Menu.Item key="user" prefetch={true}>
+                        {userButton}
                       </Menu.Item>
                       <Menu.Item key="register" prefetch={true}>
                         <Link href="/register">
@@ -78,3 +88,5 @@ export default class AppLayout extends React.Component {
     );
   }
 }
+
+export default withAuthContext(AppLayout);

@@ -61,7 +61,6 @@ export default class Question extends React.Component {
   };
 
   refreshAnswerList = async () => {
-    console.log('Refresh triggering');
     const json = await Question.fetchQuestion(this.props.question.id);
     this.setState(prev => {
       return {

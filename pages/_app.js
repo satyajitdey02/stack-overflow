@@ -3,10 +3,14 @@ import App from 'next/app';
 import AuthProvider from '../components/providers/AuthProvider';
 
 export default class StackOverflowApp extends App {
-  componentDidMount() {}
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: null,
+    };
+  }
 
   handleLogin = user => {
-    console.log('Handling Login....');
     this.setState({
       user: {
         ...user,
