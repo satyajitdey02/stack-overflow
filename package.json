@@ -27,6 +27,7 @@
     "less": "^3.10.3",
     "next": "^9.0.5",
     "null-loader": "^3.0.0",
+    "prop-types": "^15.7.2",
     "rc-tween-one": "^2.6.3",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",

@@ -2,6 +2,7 @@ import AppLayout from '../components/AppLayout';
 import React from 'react';
 import fetch from 'isomorphic-unfetch';
 import Link from 'next/link';
+import SearchResultItem from '../components/SearchResultItem';
 
 export default class Index extends React.Component {
   static async getInitialProps() {
@@ -22,13 +23,7 @@ export default class Index extends React.Component {
     return (
       <AppLayout>
         {questions.map(q => {
-          return (
-            <div key={q.id}>
-              <Link href="/questions/[qid]" as={`/questions/${q.id}`}>
-                <a>{q.title}</a>
-              </Link>
-            </div>
-          );
+          return <SearchResultItem key={q.id} item={q} />;
         })}
       </AppLayout>
     );

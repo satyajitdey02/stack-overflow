@@ -72,16 +72,7 @@ class AppLayout extends React.Component {
                 </Row>
               </Header>
             </Affix>
-            <Content
-              style={{
-                margin: '24px 16px',
-                padding: 24,
-                background: '#fff',
-                minHeight: 280,
-              }}
-            >
-              {children}
-            </Content>
+            <Content className="main-content">{children}</Content>
           </Layout>
         </Layout>
       </>
