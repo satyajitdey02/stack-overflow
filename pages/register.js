@@ -12,6 +12,7 @@ import {
   AutoComplete,
 } from 'antd';
 import AppLayout from '../components/AppLayout';
+import Router from 'next/router';
 
 const { Option } = Select;
 const AutoCompleteOption = AutoComplete.Option;
@@ -57,19 +58,20 @@ class RegistrationForm extends React.Component {
     autoCompleteResult: [],
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.form.validateFieldsAndScroll((err, values) => {
+  handleSubmit = event => {
+    event.preventDefault();
+    this.props.form.validateFieldsAndScroll(async (err, values) => {
       if (!err) {
-        this.registerUser(values);
+        await this.registerUser(values);
+        Router.push('/login');
       }
     });
   };
 
-  registerUser = formValues => {
+  registerUser = async formValues => {
     formValues.registeredAt = new Date();
 
-    fetch(`http://localhost:3000/users`, {
+    await fetch(`http://localhost:3000/users`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -121,12 +123,15 @@ class RegistrationForm extends React.Component {
       labelCol: {
         xs: { span: 24 },
         sm: { span: 8 },
+        lg: { span: 3, offset: 6 },
       },
       wrapperCol: {
         xs: { span: 24 },
         sm: { span: 16 },
+        lg: { span: 6 },
       },
     };
+
     const tailFormItemLayout = {
       wrapperCol: {
         xs: {
@@ -136,6 +141,10 @@ class RegistrationForm extends React.Component {
         sm: {
           span: 16,
           offset: 8,
+        },
+        lg: {
+          span: 4,
+          offset: 11,
         },
       },
     };
