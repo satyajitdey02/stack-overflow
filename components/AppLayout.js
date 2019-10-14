@@ -25,18 +25,20 @@ class AppLayout extends React.Component {
     });
   };
 
+  isUsedLoggedIn = () =>
+    this.props.user !== null && this.props.user !== undefined;
+
   render() {
     const { children, user, onLogout } = this.props;
-    const userButton =
-      user === null ? (
-        <Link href="/login">
-          <a>Login</a>
-        </Link>
-      ) : (
-        <button onClick={onLogout} className="logout">
-          {'Logout'}
-        </button>
-      );
+    const userButton = this.isUsedLoggedIn() ? (
+      <button onClick={onLogout} className="logout">
+        {'Logout'}
+      </button>
+    ) : (
+      <Link href="/login">
+        <a>Login</a>
+      </Link>
+    );
 
     return (
       <>
@@ -62,11 +64,13 @@ class AppLayout extends React.Component {
                       <Menu.Item key="user" prefetch={true}>
                         {userButton}
                       </Menu.Item>
-                      <Menu.Item key="register" prefetch={true}>
-                        <Link href="/register">
-                          <a>Register</a>
-                        </Link>
-                      </Menu.Item>
+                      {!this.isUsedLoggedIn() && (
+                        <Menu.Item key="register" prefetch={true}>
+                          <Link href="/register">
+                            <a>Register</a>
+                          </Link>
+                        </Menu.Item>
+                      )}
                     </Menu>
                   </Col>
                 </Row>

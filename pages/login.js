@@ -3,6 +3,7 @@ import AppLayout from '../components/AppLayout';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import withAuthContext from '../components/hoc/withAuthContext';
 import Router from 'next/router';
+import { setCookie } from '../utils/cookieUtils';
 
 class NormalLoginForm extends React.Component {
   constructor(props) {
@@ -26,6 +27,15 @@ class NormalLoginForm extends React.Component {
         }
       }
     });
+  };
+
+  saveUser = user => {
+    const detailsToSave = JSON.stringify({
+      name: user.name,
+      email: user.email,
+      id: user.id,
+    });
+    setCookie('appUser', detailsToSave, 7);
   };
 
   authenticate = async values => {
