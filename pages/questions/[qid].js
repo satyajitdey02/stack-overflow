@@ -2,6 +2,7 @@ import AppLayout from './../../components/AppLayout';
 import React from 'react';
 import fetch from 'isomorphic-unfetch';
 import AnswerForm from '../../components/AnswerForm';
+import { Tag } from 'antd';
 
 export default class Question extends React.Component {
   static async getInitialProps({ query }) {
@@ -70,6 +71,20 @@ export default class Question extends React.Component {
     });
   };
 
+  renderTags = () => {
+    const { question } = this.state;
+
+    if (!question && !question.tags) {
+      return null;
+    }
+
+    return question.tags.map(tag => (
+      <Tag key={tag} closable={false}>
+        {tag}
+      </Tag>
+    ));
+  };
+
   render() {
     const { question } = this.state;
     return (
@@ -81,7 +96,7 @@ export default class Question extends React.Component {
           dangerouslySetInnerHTML={{ __html: question.body }}
         />
 
-        <div className={'tags'}> {question.tags ? question.tags : ''}</div>
+        {this.renderTags()}
 
         {question.answers &&
           question.answers.map((a, i) => {

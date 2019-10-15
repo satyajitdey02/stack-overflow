@@ -78,6 +78,7 @@ class AnswerForm extends React.Component {
       labelCol: {
         xs: { span: 24 },
         sm: { span: 8 },
+        lg: { span: 2 },
       },
       wrapperCol: {
         xs: { span: 24 },
@@ -98,40 +99,42 @@ class AnswerForm extends React.Component {
     };
 
     return (
-      <Form
-        {...formItemLayout}
-        onSubmit={this.handleSubmit}
-        ref={this.answerForm}
-      >
-        <Form.Item label="Question Body">
-          {getFieldDecorator('answer', {
-            rules: [
-              {
-                required: true,
-                message: 'Write answer',
-              },
-            ],
-          })(
-            this.state.showEditor ? (
-              <Editor
-                editorState={this.state.editorState}
-                toolbarClassName="toolbarClassName"
-                wrapperClassName="wrapperClassName"
-                editorClassName="editorClassName"
-                onEditorStateChange={this.onEditorStateChange}
-              />
-            ) : (
-              <div />
-            )
-          )}
-        </Form.Item>
+      <div className="answer-form">
+        <Form
+          {...formItemLayout}
+          onSubmit={this.handleSubmit}
+          ref={this.answerForm}
+        >
+          <Form.Item label="Answer">
+            {getFieldDecorator('answer', {
+              rules: [
+                {
+                  required: true,
+                  message: 'Write answer',
+                },
+              ],
+            })(
+              this.state.showEditor ? (
+                <Editor
+                  editorState={this.state.editorState}
+                  toolbarClassName="toolbarClassName"
+                  wrapperClassName="wrapperClassName"
+                  editorClassName="editorClassName"
+                  onEditorStateChange={this.onEditorStateChange}
+                />
+              ) : (
+                <div />
+              )
+            )}
+          </Form.Item>
 
-        <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" htmlType="submit">
-            Post Answer
-          </Button>
-        </Form.Item>
-      </Form>
+          <Form.Item {...tailFormItemLayout}>
+            <Button type="primary" htmlType="submit">
+              Post Answer
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
     );
   }
 }
