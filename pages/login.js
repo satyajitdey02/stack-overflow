@@ -22,7 +22,7 @@ class NormalLoginForm extends React.Component {
         const user = await this.authenticate(values);
         this.setState({ submitting: false });
         if (user.length) {
-          this.props.onLogin(user[0]);
+          this.saveUser(user[0]);
           Router.push('/');
         }
       }
@@ -36,6 +36,7 @@ class NormalLoginForm extends React.Component {
       id: user.id,
     });
     setCookie('appUser', detailsToSave, 7);
+    this.props.onLogin(detailsToSave);
   };
 
   authenticate = async values => {

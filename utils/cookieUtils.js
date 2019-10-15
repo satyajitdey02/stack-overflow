@@ -20,5 +20,6 @@ export function getCookie(name) {
 }
 
 export function eraseCookie(name) {
-  document.cookie = `${name}=; Max-Age=-99999999;`;
+  var date = new Date();
+  document.cookie = `${name}=; expires=${date.toUTCString()}; path=/`;
 }

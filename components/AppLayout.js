@@ -3,13 +3,14 @@ import Head from './common/Head';
 import SearchBox from './SearchBox';
 import Link from 'next/link';
 import withAuthContext from '../components/hoc/withAuthContext';
+import { eraseCookie } from '../utils/cookieUtils';
 
 import './../assets/styles.less';
 
 import { Layout, Menu, Icon, Row, Col, Affix } from 'antd';
 import HeaderOptions from './HeaderOptions';
 
-const { Header, Sider, Content } = Layout;
+const { Header, Content } = Layout;
 
 class AppLayout extends React.Component {
   constructor(props) {
@@ -28,10 +29,15 @@ class AppLayout extends React.Component {
   isUsedLoggedIn = () =>
     this.props.user !== null && this.props.user !== undefined;
 
+  logoutUser = () => {
+    eraseCookie('appUser');
+    this.props.onLogout();
+  };
+
   render() {
-    const { children, user, onLogout } = this.props;
+    const { children, user } = this.props;
     const userButton = this.isUsedLoggedIn() ? (
-      <button onClick={onLogout} className="logout">
+      <button onClick={this.logoutUser} className="logout">
         {'Logout'}
       </button>
     ) : (

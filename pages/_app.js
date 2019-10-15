@@ -1,6 +1,7 @@
 import React from 'react';
 import App from 'next/app';
 import AuthProvider from '../components/providers/AuthProvider';
+import { getCookie } from '../utils/cookieUtils';
 
 export default class StackOverflowApp extends App {
   constructor(props) {
@@ -8,6 +9,13 @@ export default class StackOverflowApp extends App {
     this.state = {
       user: null,
     };
+  }
+
+  componentDidMount() {
+    const user = getCookie('appUser');
+    if (user) {
+      this.setState({ user });
+    }
   }
 
   handleLogin = user => {
